@@ -1,4 +1,10 @@
 class SubsController < ApplicationController
+    before_action :require_logged_in , only: [:edit, :update]
+
+    def require_moderator
+        moderator = Sub.find(params[:id]).moderator
+        moderator == @current_user
+    end 
 
     def index
         @subs = Sub.all
